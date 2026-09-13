@@ -10,6 +10,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getModuleBySlug } from "@/core/config/modules";
 import { getCoursesByModule } from "@/modules/courses/getCoursesByModule";
+import { CourseContent } from "@/modules/courses/CourseContent";
 
 type ModulePageProps = {
   params: Promise<{ slug: string }>;
@@ -40,22 +41,17 @@ export default async function ModulePage({ params }: ModulePageProps) {
       <h1 className="text-2xl font-bold mt-1">{module.title}</h1>
       <p className="text-gray-600 mt-3">{module.description}</p>
 
-      <div className="mt-10 space-y-4">
+      <div className="mt-10 space-y-10">
         {courses.length === 0 ? (
           <div className="rounded-xl border border-dashed border-gray-300 p-6 text-sm text-gray-400">
             Aucun cours pour ce module pour l&apos;instant.
           </div>
         ) : (
           courses.map((course) => (
-            <div key={course.id} className="rounded-xl border border-gray-200 p-5">
+            <div key={course.id} className="rounded-xl border border-gray-200 p-6">
               <span className="text-xs text-gray-400">{course.status}</span>
-              <h2 className="font-semibold mt-1">{course.title}</h2>
-              {/* whitespace-pre-wrap : affiche le texte brut en respectant
-                  les sauts de ligne. Le rendu Markdown propre (titres,
-                  listes, gras...) viendra dans une étape ultérieure. */}
-              <p className="text-sm text-gray-600 mt-2 whitespace-pre-wrap">
-                {course.content}
-              </p>
+              <h2 className="font-semibold text-xl mt-1 mb-6">{course.title}</h2>
+              <CourseContent content={course.content} />
             </div>
           ))
         )}
