@@ -69,3 +69,10 @@ export const TRAVEL_MODULES: TravelModule[] = [
     description: "Automatisation et usage de l'IA dans le tourisme.",
   },
 ];
+
+// Petit helper : évite de refaire "TRAVEL_MODULES.find(...)" partout où
+// on a besoin de retrouver un module depuis son slug (ex: dans la route
+// dynamique /modules/[slug]).
+export function getModuleBySlug(slug: string): TravelModule | undefined {
+  return TRAVEL_MODULES.find((module) => module.slug === slug);
+}
