@@ -3,7 +3,7 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #1a1a1a;
 }
 
 @theme inline {
@@ -13,12 +13,10 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* Palette claire fixe pour l'instant, volontairement indépendante du
+   thème système — une vraie direction artistique (couleurs, typographie)
+   arrivera dans une passe design dédiée, une fois qu'on aura du contenu
+   réel à mettre en forme. */
 
 body {
   background: var(--background);
