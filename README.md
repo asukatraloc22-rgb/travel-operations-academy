@@ -52,8 +52,14 @@ toucher aux composants qui l'affichent.
 - ✅ Connexion Supabase fonctionnelle (`core/supabase/client.ts`)
 - ✅ Table `courses` créée, cours affichés dynamiquement par module
   (`modules/courses/getCoursesByModule.ts`)
-- ⚠️ Row Level Security (RLS) pas encore activée sur `courses` — à faire
-  avant tout déploiement public
+- ⚠️ Row Level Security (RLS) activée sur `courses`, mais avec lecture ET
+  écriture publiques (policy `anon`) — acceptable tant que l'app n'est pas
+  déployée. **Important : rendre le repo GitHub privé ne protège PAS
+  l'app une fois déployée** — la clé Supabase `anon` est exposée côté
+  client par design, donc une écriture publique reste possible depuis
+  n'importe quel navigateur visitant l'URL déployée, repo privé ou non.
+  Une vraie protection nécessite une authentification (Supabase Auth) —
+  à faire avant tout déploiement public sur Vercel.
 
 ## Méthode de travail
 
