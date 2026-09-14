@@ -15,8 +15,8 @@ export default function manifest(): MetadataRoute.Manifest {
       "Parcours d'apprentissage structuré en 9 modules pour progresser dans le métier de travel agent.",
     start_url: "/",
     display: "standalone", // s'affiche comme une vraie app, sans barre d'adresse
-    background_color: "#ffffff",
-    theme_color: "#111111",
+    background_color: "#f8fafc",
+    theme_color: "#0d9488",
     icons: [
       {
         src: "/icon-192.png",
