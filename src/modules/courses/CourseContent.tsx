@@ -32,8 +32,8 @@ export function CourseContent({ content }: CourseContentProps) {
   return (
     <div className="grid md:grid-cols-[200px_1fr] gap-8">
       {chapters.length > 0 && (
-        <nav className="hidden md:block sticky top-8 self-start text-sm">
-          <p className="font-semibold text-gray-400 uppercase text-xs mb-3">
+        <nav className="hidden md:block sticky top-24 self-start text-sm">
+          <p className="font-semibold text-[var(--color-text-muted)] uppercase text-xs mb-3">
             Chapitres
           </p>
           <ul className="space-y-2">
@@ -41,7 +41,7 @@ export function CourseContent({ content }: CourseContentProps) {
               <li key={chapter.slug}>
                 <a
                   href={`#${chapter.slug}`}
-                  className="text-gray-600 hover:text-black"
+                  className="text-[var(--color-text-secondary)] hover:text-[var(--color-nature-700)]"
                 >
                   {chapter.title}
                 </a>

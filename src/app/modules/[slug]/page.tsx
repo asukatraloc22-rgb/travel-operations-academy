@@ -31,25 +31,28 @@ export default async function ModulePage({ params }: ModulePageProps) {
 
   return (
     <main className="max-w-3xl mx-auto px-6 py-16">
-      <Link href="/" className="text-sm text-gray-500 hover:underline">
+      <Link href="/" className="text-sm text-[var(--color-text-secondary)] hover:underline">
         ← Retour aux modules
       </Link>
 
-      <span className="block text-xs font-semibold text-gray-400 mt-6">
+      <span className="inline-block rounded-full bg-[var(--color-nature-50)] text-[var(--color-nature-700)] text-xs font-semibold px-2 py-0.5 mt-6">
         Module {module.id}
       </span>
-      <h1 className="text-2xl font-bold mt-1">{module.title}</h1>
-      <p className="text-gray-600 mt-3">{module.description}</p>
+      <h1 className="text-2xl font-bold mt-3">{module.title}</h1>
+      <p className="text-[var(--color-text-secondary)] mt-2">{module.description}</p>
 
       <div className="mt-10 space-y-10">
         {courses.length === 0 ? (
-          <div className="rounded-xl border border-dashed border-gray-300 p-6 text-sm text-gray-400">
+          <div className="rounded-xl border border-dashed border-[var(--color-border)] p-6 text-sm text-[var(--color-text-muted)]">
             Aucun cours pour ce module pour l&apos;instant.
           </div>
         ) : (
           courses.map((course) => (
-            <div key={course.id} className="rounded-xl border border-gray-200 p-6">
-              <span className="text-xs text-gray-400">{course.status}</span>
+            <div
+              key={course.id}
+              className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6"
+            >
+              <span className="text-xs text-[var(--color-text-muted)]">{course.status}</span>
               <h2 className="font-semibold text-xl mt-1 mb-6">{course.title}</h2>
               <CourseContent content={course.content} />
             </div>

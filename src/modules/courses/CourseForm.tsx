@@ -49,11 +49,13 @@ export function CourseForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       <div>
-        <label className="block text-sm font-medium mb-1">Module</label>
+        <label className="block text-sm font-medium mb-1 text-[var(--color-text)]">
+          Module
+        </label>
         <select
           value={moduleSlug}
           onChange={(e) => setModuleSlug(e.target.value)}
-          className="w-full rounded-lg border border-gray-300 px-3 py-2"
+          className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-nature-500)]"
         >
           {TRAVEL_MODULES.map((module) => (
             <option key={module.slug} value={module.slug}>
@@ -64,18 +66,20 @@ export function CourseForm() {
       </div>
 
       <div>
-        <label className="block text-sm font-medium mb-1">Titre du cours</label>
+        <label className="block text-sm font-medium mb-1 text-[var(--color-text)]">
+          Titre du cours
+        </label>
         <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
-          className="w-full rounded-lg border border-gray-300 px-3 py-2"
+          className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-nature-500)]"
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium mb-1">
+        <label className="block text-sm font-medium mb-1 text-[var(--color-text)]">
           Contenu (Markdown)
         </label>
         <textarea
@@ -83,7 +87,7 @@ export function CourseForm() {
           onChange={(e) => setContent(e.target.value)}
           required
           rows={12}
-          className="w-full rounded-lg border border-gray-300 px-3 py-2 font-mono text-sm"
+          className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-nature-500)]"
         />
       </div>
 
@@ -92,7 +96,7 @@ export function CourseForm() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="rounded-lg bg-black text-white px-4 py-2 text-sm font-medium disabled:opacity-50"
+        className="rounded-lg bg-[var(--color-nature-600)] text-white px-4 py-2 text-sm font-medium hover:bg-[var(--color-nature-700)] transition-colors disabled:opacity-50"
       >
         {isSubmitting ? "Enregistrement..." : "Ajouter le cours"}
       </button>

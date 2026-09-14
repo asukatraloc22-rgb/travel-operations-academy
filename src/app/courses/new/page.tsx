@@ -12,7 +12,7 @@ import { CourseForm } from "@/modules/courses/CourseForm";
 export default function NewCoursePage() {
   return (
     <main className="max-w-2xl mx-auto px-6 py-16">
-      <Link href="/" className="text-sm text-gray-500 hover:underline">
+      <Link href="/" className="text-sm text-[var(--color-text-secondary)] hover:underline">
         ← Retour aux modules
       </Link>
 
