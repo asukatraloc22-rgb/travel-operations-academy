@@ -26,7 +26,7 @@ export default async function Home() {
           </p>
 
           {/* Stats réelles — pas de chiffres inventés. */}
-          <div className="flex gap-8 mt-10">
+          <div className="flex flex-wrap gap-6 sm:gap-8 mt-10">
             <div>
               <p className="text-2xl font-bold">{TRAVEL_MODULES.length}</p>
               <p className="text-sm text-white/70">modules</p>

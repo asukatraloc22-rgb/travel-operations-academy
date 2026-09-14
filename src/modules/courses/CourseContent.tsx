@@ -30,13 +30,16 @@ export function CourseContent({ content }: CourseContentProps) {
   const chapters = extractChapters(content);
 
   return (
-    <div className="grid md:grid-cols-[200px_1fr] gap-8">
+    <div>
+      {/* Mobile: sommaire repliable, natif (details/summary), aucun
+          JavaScript nécessaire pour l'ouverture/fermeture. Caché à partir
+          de md, où le sommaire fixe en colonne prend le relais. */}
       {chapters.length > 0 && (
-        <nav className="hidden md:block sticky top-24 self-start text-sm">
-          <p className="font-semibold text-[var(--color-text-muted)] uppercase text-xs mb-3">
-            Chapitres
-          </p>
-          <ul className="space-y-2">
+        <details className="md:hidden mb-6 rounded-lg border border-[var(--color-border)] p-3">
+          <summary className="text-sm font-semibold cursor-pointer">
+            Sommaire ({chapters.length} chapitres)
+          </summary>
+          <ul className="mt-3 space-y-2 text-sm">
             {chapters.map((chapter) => (
               <li key={chapter.slug}>
                 <a
@@ -48,32 +51,54 @@ export function CourseContent({ content }: CourseContentProps) {
               </li>
             ))}
           </ul>
-        </nav>
+        </details>
       )}
 
-      {/* "prose" : classe fournie par @tailwindcss/typography, applique
-          automatiquement une belle mise en page à du contenu Markdown
-          (espacements, tailles de titres, style des listes...) sans avoir
-          à styler chaque balise HTML à la main. */}
-      <div className="prose prose-neutral max-w-none">
-        <ReactMarkdown
-          remarkPlugins={[remarkGfm]}
-          components={{
-            // On intercepte le rendu des <h2> pour leur ajouter un "id"
-            // correspondant au slug — c'est ce qui permet aux liens du
-            // sommaire (href="#...") de sauter au bon endroit.
-            h2: ({ children, ...props }) => {
-              const text = String(children);
-              return (
-                <h2 id={slugify(text)} {...props}>
-                  {children}
-                </h2>
-              );
-            },
-          }}
-        >
-          {content}
-        </ReactMarkdown>
+      <div className="grid md:grid-cols-[200px_1fr] gap-8">
+        {chapters.length > 0 && (
+          <nav className="hidden md:block sticky top-24 self-start text-sm">
+            <p className="font-semibold text-[var(--color-text-muted)] uppercase text-xs mb-3">
+              Chapitres
+            </p>
+            <ul className="space-y-2">
+              {chapters.map((chapter) => (
+                <li key={chapter.slug}>
+                  <a
+                    href={`#${chapter.slug}`}
+                    className="text-[var(--color-text-secondary)] hover:text-[var(--color-nature-700)]"
+                  >
+                    {chapter.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
+
+        {/* "prose" : classe fournie par @tailwindcss/typography, applique
+            automatiquement une belle mise en page à du contenu Markdown
+            (espacements, tailles de titres, style des listes...) sans avoir
+            à styler chaque balise HTML à la main. */}
+        <div className="prose prose-neutral max-w-none">
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            components={{
+              // On intercepte le rendu des <h2> pour leur ajouter un "id"
+              // correspondant au slug — c'est ce qui permet aux liens du
+              // sommaire (href="#...") de sauter au bon endroit.
+              h2: ({ children, ...props }) => {
+                const text = String(children);
+                return (
+                  <h2 id={slugify(text)} {...props}>
+                    {children}
+                  </h2>
+                );
+              },
+            }}
+          >
+            {content}
+          </ReactMarkdown>
+        </div>
       </div>
     </div>
   );
