@@ -9,7 +9,7 @@ import { ModuleCard } from "@/modules/dashboard/ModuleCard";
 import { getCourseCounts } from "@/modules/courses/getCoursesByModule";
 
 export default async function Home() {
-  const { total: totalCourses, byModule } = await getCourseCounts();
+  const { total: totalCourses, byModule, completedByModule } = await getCourseCounts();
   const modulesStarted = Object.keys(byModule).length;
 
   return (
@@ -52,6 +52,7 @@ export default async function Home() {
               key={module.id}
               module={module}
               courseCount={byModule[module.slug] ?? 0}
+              completedCount={completedByModule[module.slug] ?? 0}
             />
           ))}
         </div>

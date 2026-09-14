@@ -11,6 +11,8 @@ import Link from "next/link";
 import { getModuleBySlug } from "@/core/config/modules";
 import { getCoursesByModule } from "@/modules/courses/getCoursesByModule";
 import { CourseContent } from "@/modules/courses/CourseContent";
+import { CourseStatusToggle } from "@/modules/courses/CourseStatusToggle";
+import { ProgressBar } from "@/shared/components/ProgressBar";
 
 type ModulePageProps = {
   params: Promise<{ slug: string }>;
@@ -28,6 +30,9 @@ export default async function ModulePage({ params }: ModulePageProps) {
   }
 
   const courses = await getCoursesByModule(module.slug);
+  const completedCount = courses.filter((c) => c.status === "terminé").length;
+  const progressPercent =
+    courses.length === 0 ? 0 : Math.round((completedCount / courses.length) * 100);
 
   return (
     <main className="max-w-3xl mx-auto px-6 py-16">
@@ -41,6 +46,16 @@ export default async function ModulePage({ params }: ModulePageProps) {
       <h1 className="text-2xl font-bold mt-3">{module.title}</h1>
       <p className="text-[var(--color-text-secondary)] mt-2">{module.description}</p>
 
+      {courses.length > 0 && (
+        <div className="mt-6 max-w-xs">
+          <div className="flex justify-between text-xs text-[var(--color-text-muted)] mb-1">
+            <span>Progression</span>
+            <span>{progressPercent}%</span>
+          </div>
+          <ProgressBar percent={progressPercent} />
+        </div>
+      )}
+
       <div className="mt-10 space-y-10">
         {courses.length === 0 ? (
           <div className="rounded-xl border border-dashed border-[var(--color-border)] p-6 text-sm text-[var(--color-text-muted)]">
@@ -52,9 +67,13 @@ export default async function ModulePage({ params }: ModulePageProps) {
               key={course.id}
               className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6"
             >
-              <span className="text-xs text-[var(--color-text-muted)]">{course.status}</span>
-              <h2 className="font-semibold text-xl mt-1 mb-6">{course.title}</h2>
-              <CourseContent content={course.content} />
+              <div className="flex items-center justify-between">
+                <h2 className="font-semibold text-xl">{course.title}</h2>
+                <CourseStatusToggle courseId={course.id} status={course.status} />
+              </div>
+              <div className="mt-6">
+                <CourseContent content={course.content} />
+              </div>
             </div>
           ))
         )}

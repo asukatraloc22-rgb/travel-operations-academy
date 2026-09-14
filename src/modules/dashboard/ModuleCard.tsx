@@ -6,13 +6,18 @@
 
 import Link from "next/link";
 import type { TravelModule } from "@/core/config/modules";
+import { ProgressBar } from "@/shared/components/ProgressBar";
 
 type ModuleCardProps = {
   module: TravelModule;
   courseCount: number;
+  completedCount: number;
 };
 
-export function ModuleCard({ module, courseCount }: ModuleCardProps) {
+export function ModuleCard({ module, courseCount, completedCount }: ModuleCardProps) {
+  const progressPercent =
+    courseCount === 0 ? 0 : Math.round((completedCount / courseCount) * 100);
+
   return (
     <Link
       href={`/modules/${module.slug}`}
@@ -22,10 +27,6 @@ export function ModuleCard({ module, courseCount }: ModuleCardProps) {
         <span className="inline-block rounded-full bg-[var(--color-nature-50)] text-[var(--color-nature-700)] text-xs font-semibold px-2 py-0.5">
           Module {module.id}
         </span>
-        {/* Nombre RÉEL de cours dans ce module — pas une barre de
-            progression fictive. On affichera une vraie progression
-            (cours suivis/terminés) une fois cette fonctionnalité
-            construite, pas avant. */}
         <span className="text-xs text-[var(--color-text-muted)]">
           {courseCount} cours
         </span>
@@ -36,6 +37,12 @@ export function ModuleCard({ module, courseCount }: ModuleCardProps) {
       <p className="text-sm text-[var(--color-text-secondary)] mt-2">
         {module.description}
       </p>
+
+      {courseCount > 0 && (
+        <div className="mt-4">
+          <ProgressBar percent={progressPercent} />
+        </div>
+      )}
     </Link>
   );
 }

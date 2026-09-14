@@ -36,18 +36,27 @@ export async function getCoursesByModule(moduleSlug: string): Promise<Course[]> 
 export async function getCourseCounts(): Promise<{
   total: number;
   byModule: Record<string, number>;
+  completedByModule: Record<string, number>;
 }> {
-  const { data, error } = await supabase.from("courses").select("module_slug");
+  const { data, error } = await supabase
+    .from("courses")
+    .select("module_slug, status");
 
   if (error) {
     console.error("Error fetching course counts:", error.message);
-    return { total: 0, byModule: {} };
+    return { total: 0, byModule: {}, completedByModule: {} };
   }
 
   const byModule: Record<string, number> = {};
+  const completedByModule: Record<string, number> = {};
+
   for (const row of data ?? []) {
     byModule[row.module_slug] = (byModule[row.module_slug] ?? 0) + 1;
+    if (row.status === "terminé") {
+      completedByModule[row.module_slug] =
+        (completedByModule[row.module_slug] ?? 0) + 1;
+    }
   }
 
-  return { total: data?.length ?? 0, byModule };
+  return { total: data?.length ?? 0, byModule, completedByModule };
 }
