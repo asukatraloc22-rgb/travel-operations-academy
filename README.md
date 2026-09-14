@@ -1,4 +1,4 @@
-# Travel Operations Academy
+# TourismHub
 
 Application personnelle d'apprentissage pour monter en compétence sur le
 métier de travel agent / agency management, à travers 9 modules structurés.

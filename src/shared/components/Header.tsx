@@ -17,8 +17,7 @@ export function Header() {
     <header className="sticky top-0 z-10 border-b border-[var(--color-border)] bg-[var(--color-surface)]/90 backdrop-blur">
       <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link href="/" className="font-semibold text-lg shrink-0">
-          <span className="sm:hidden">TOA</span>
-          <span className="hidden sm:inline">Travel Operations Academy</span>
+          TourismHub
         </Link>
 
         <nav className="flex items-center gap-3 sm:gap-6 text-sm">

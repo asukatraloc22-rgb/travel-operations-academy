@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Travel Operations Academy",
+  title: "TourismHub",
   description:
     "Parcours d'apprentissage structuré en 9 modules pour progresser dans le métier de travel agent.",
 };

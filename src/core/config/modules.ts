@@ -1,6 +1,6 @@
 // core/config/modules.ts
 //
-// Single source of truth pour les 9 modules de la Travel Operations Academy.
+// Single source of truth pour les 9 modules de TourismHub.
 // "Single source of truth" = un seul endroit fiable où cette donnée existe ;
 // tout le reste de l'app vient LIRE cette liste plutôt que de la dupliquer.
 

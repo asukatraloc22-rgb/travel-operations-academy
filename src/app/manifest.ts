@@ -9,8 +9,8 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Travel Operations Academy",
-    short_name: "TOA",
+    name: "TourismHub",
+    short_name: "TourismHub",
     description:
       "Parcours d'apprentissage structuré en 9 modules pour progresser dans le métier de travel agent.",
     start_url: "/",
