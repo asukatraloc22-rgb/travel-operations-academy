@@ -2,20 +2,14 @@
 @plugin "@tailwindcss/typography";
 
 /* ============================================================
-   DESIGN TOKENS — Travel Operations Academy
-   Source : MASTER_DESIGN_BRIEF_Travel_Operations_Academy.md
-   Phase 2 de la refonte design (tokens uniquement, pas de layout
-   ni de composants modifiés ici).
-
-   Tailwind v4 génère automatiquement des classes utilitaires à
-   partir des variables déclarées dans @theme : par exemple
-   --color-nature-500 devient utilisable comme "bg-nature-500",
-   "text-nature-500", "border-nature-500", etc. Pas besoin de
-   fichier tailwind.config.js séparé.
+   DESIGN TOKENS — TourismHub
+   Source : TourismHub_Logo_Design_Master_Brief.md (brand brief,
+   sections 10, 13, 15). Exact hex values from the brief's own
+   palette — not approximated.
    ============================================================ */
 
 :root {
-  /* Neutres */
+  /* Neutrals (unchanged — already matched the brief's gray scale) */
   --color-surface: #ffffff;
   --color-background: #f8fafc;
   --color-muted: #f1f5f9;
@@ -24,24 +18,25 @@
   --color-text-secondary: #475569;
   --color-text-muted: #94a3b8;
 
-  /* Nature (teal) */
-  --color-nature-50: #f0fdfa;
-  --color-nature-100: #ccfbf1;
-  --color-nature-200: #99f6e4;
-  --color-nature-500: #14b8a6;
-  --color-nature-600: #0d9488;
-  --color-nature-700: #0f766e;
+  /* Primary — Vert Nature */
+  --color-nature-50: #ecfdf5;
+  --color-nature-100: #d1fae5;
+  --color-nature-200: #a7f3d0;
+  --color-nature-500: #10b981;
+  --color-nature-600: #059669;
+  --color-nature-700: #047857;
 
-  /* Vert profond */
-  --color-forest-800: #115e59;
-  --color-forest-900: #134e4a;
+  /* Vert profond — contrast/deep accent */
+  --color-forest-800: #065f46;
+  --color-forest-900: #064e3b;
 
-  /* Bleu océan */
-  --color-ocean-500: #0ea5e9;
-  --color-ocean-600: #0284c7;
+  /* Secondary — Turquoise */
+  --color-turquoise-500: #06b6d4;
+  --color-turquoise-600: #0891b2;
 
-  /* Accent chaud, usage ponctuel uniquement (badges, étoiles) */
-  --color-sand: #f59e0b;
+  /* Accent — Bleu Océan */
+  --color-ocean-500: #3b82f6;
+  --color-ocean-600: #2563eb;
 }
 
 @theme inline {
@@ -63,25 +58,35 @@
   --color-forest-800: var(--color-forest-800);
   --color-forest-900: var(--color-forest-900);
 
+  --color-turquoise-500: var(--color-turquoise-500);
+  --color-turquoise-600: var(--color-turquoise-600);
+
   --color-ocean-500: var(--color-ocean-500);
   --color-ocean-600: var(--color-ocean-600);
 
-  --color-sand: var(--color-sand);
+  /* Typography — headings vs body/UI use different families,
+     per brief section 13. "--font-sans" stays the Tailwind default
+     (used unless a component opts into --font-heading explicitly). */
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-jakarta);
 
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-
-  /* Rayons de bordure — remplace l'échelle par défaut de Tailwind
-     par celle définie dans le brief (section 7). */
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 14px;
-  --radius-xl: 18px;
-  --radius-2xl: 24px;
+  /* Border radius — brief section 15 ranges (small UI 8-10px, cards
+     14-20px, buttons 10-14px, large feature/hero 20-28px). */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 28px;
 }
 
 body {
   background: var(--color-background);
   color: var(--color-text);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading), var(--font-sans), sans-serif;
 }
