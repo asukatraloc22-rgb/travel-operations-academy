@@ -1,27 +1,61 @@
 // app/page.tsx
 //
-// C'est un "Server Component" par défaut dans Next.js (App Router) :
-// il s'exécute côté serveur avant d'envoyer le HTML au navigateur, plutôt
-// que dans le navigateur du visiteur. Avantage : plus rapide au premier
-// chargement, et on pourra plus tard y faire des requêtes Supabase
-// directement, sans passer par une API séparée.
+// Server Component. Design Phase 5 (Homepage): hero section + a stats
+// row driven by REAL data from Supabase (module count is static/known,
+// course count and "modules started" are fetched, not invented).
 
 import { TRAVEL_MODULES } from "@/core/config/modules";
 import { ModuleCard } from "@/modules/dashboard/ModuleCard";
+import { getCourseCounts } from "@/modules/courses/getCoursesByModule";
 
-export default function Home() {
+export default async function Home() {
+  const { total: totalCourses, byModule } = await getCourseCounts();
+  const modulesStarted = Object.keys(byModule).length;
+
   return (
-    <main className="max-w-4xl mx-auto px-6 py-16">
-      <h1 className="text-3xl font-bold">Travel Operations Academy</h1>
-      <p className="text-[var(--color-text-secondary)] mt-2">
-        Ton parcours structuré en 9 modules vers l&apos;expertise voyage.
-      </p>
+    <main>
+      {/* Hero */}
+      <section className="bg-gradient-to-br from-[var(--color-nature-600)] to-[var(--color-ocean-600)] text-white">
+        <div className="max-w-4xl mx-auto px-6 py-20">
+          <h1 className="text-3xl sm:text-4xl font-bold max-w-2xl">
+            Bâtis ton expertise du tourisme, un module à la fois
+          </h1>
+          <p className="text-white/85 mt-4 max-w-xl">
+            9 modules structurés pour progresser du terrain jusqu&apos;au
+            management — construits à partir de vrais cas d&apos;agence.
+          </p>
 
-      <div className="grid sm:grid-cols-2 gap-4 mt-10">
-        {TRAVEL_MODULES.map((module) => (
-          <ModuleCard key={module.id} module={module} />
-        ))}
-      </div>
+          {/* Stats réelles — pas de chiffres inventés. */}
+          <div className="flex gap-8 mt-10">
+            <div>
+              <p className="text-2xl font-bold">{TRAVEL_MODULES.length}</p>
+              <p className="text-sm text-white/70">modules</p>
+            </div>
+            <div>
+              <p className="text-2xl font-bold">{totalCourses}</p>
+              <p className="text-sm text-white/70">cours ajoutés</p>
+            </div>
+            <div>
+              <p className="text-2xl font-bold">{modulesStarted}</p>
+              <p className="text-sm text-white/70">modules démarrés</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Modules grid */}
+      <section className="max-w-4xl mx-auto px-6 py-16">
+        <h2 className="text-xl font-semibold mb-6">Tes modules</h2>
+        <div className="grid sm:grid-cols-2 gap-4">
+          {TRAVEL_MODULES.map((module) => (
+            <ModuleCard
+              key={module.id}
+              module={module}
+              courseCount={byModule[module.slug] ?? 0}
+            />
+          ))}
+        </div>
+      </section>
     </main>
   );
 }
