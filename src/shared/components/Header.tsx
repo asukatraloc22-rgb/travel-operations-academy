@@ -1,16 +1,12 @@
 // shared/components/Header.tsx
 //
-// Header global de l'app — brief section 11 : fin, discret, sticky,
-// fond clair/translucide. Server Component : aucun state, aucune
-// interactivité nécessaire pour de simples liens.
-//
-// Volontairement minimal pour l'instant : seuls les liens vers des
-// pages RÉELLEMENT existantes apparaissent (Accueil). Le brief prévoit
-// "Destinations" et "Ressources", mais ces fonctionnalités n'existent
-// pas encore côté code — on évite les liens morts. À enrichir au fur
-// et à mesure que ces sections seront construites.
+// Server Component that renders AuthStatus (a Client Component) inside
+// it for the interactive, session-aware part — Server Components can
+// render Client Components as children without becoming client
+// themselves, which is why Header stays simple here.
 
 import Link from "next/link";
+import { AuthStatus } from "@/shared/components/AuthStatus";
 
 export function Header() {
   return (
@@ -24,13 +20,7 @@ export function Header() {
           <Link href="/" className="hidden sm:inline text-[var(--color-text-secondary)] hover:text-[var(--color-text)]">
             Accueil
           </Link>
-          <Link
-            href="/courses/new"
-            className="rounded-lg bg-[var(--color-nature-600)] text-white px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium hover:bg-[var(--color-nature-700)] transition-colors whitespace-nowrap"
-          >
-            <span className="sm:hidden">+ Ajouter</span>
-            <span className="hidden sm:inline">+ Ajouter un cours</span>
-          </Link>
+          <AuthStatus />
         </nav>
       </div>
     </header>

@@ -6,13 +6,26 @@
 
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/core/supabase/client";
 import { TRAVEL_MODULES } from "@/core/config/modules";
 
 export function CourseForm() {
   const router = useRouter();
+
+  // Vérification de session : purement pour l'UX (éviter de remplir un
+  // formulaire qui échouera à l'envoi). La vraie protection est côté
+  // Supabase (policy RLS "authenticated only" sur INSERT) — même si ce
+  // check était contourné, la base refuserait l'écriture sans session.
+  const [isAuthed, setIsAuthed] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      setIsAuthed(!!data.user);
+    });
+  }, []);
 
   // useState : à chaque frappe/clic, on met à jour ces variables, et React
   // redessine automatiquement le formulaire avec les nouvelles valeurs.
@@ -44,6 +57,19 @@ export function CourseForm() {
     // cours enregistré, pour voir directement le résultat.
     router.push(`/modules/${moduleSlug}`);
     router.refresh(); // force le Server Component de cette page à re-fetch
+  }
+
+  if (isAuthed === null) return null; // évite un flash pendant la vérification
+
+  if (!isAuthed) {
+    return (
+      <div className="rounded-xl border border-dashed border-[var(--color-border)] p-6 text-sm text-[var(--color-text-secondary)]">
+        Tu dois être connecté pour ajouter un cours.{" "}
+        <Link href="/login" className="text-[var(--color-nature-700)] font-medium hover:underline">
+          Se connecter
+        </Link>
+      </div>
+    );
   }
 
   return (
