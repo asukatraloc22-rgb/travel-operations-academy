@@ -59,6 +59,9 @@ toucher aux composants qui l'affichent.
   propriétaire, créé manuellement dans le dashboard Supabase — pas de
   formulaire d'inscription public dans l'app. Le header et le formulaire
   d'ajout de cours s'adaptent à l'état de connexion.
+- ✅ Déployé sur Vercel — domaine réel, HTTPS, installation PWA
+  testable en conditions réelles. Variables d'environnement Supabase
+  configurées directement dans les settings Vercel (jamais commitées).
 
 ## Méthode de travail
 
