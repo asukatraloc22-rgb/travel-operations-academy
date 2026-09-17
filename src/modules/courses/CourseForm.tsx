@@ -22,9 +22,15 @@ export function CourseForm() {
   const [isAuthed, setIsAuthed] = useState<boolean | null>(null);
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => {
-      setIsAuthed(!!data.user);
-    });
+    supabase.auth
+      .getUser()
+      .then(({ data }) => {
+        setIsAuthed(!!data.user);
+      })
+      .catch((error) => {
+        console.error("Error checking session:", error);
+        setIsAuthed(false);
+      });
   }, []);
 
   // useState : à chaque frappe/clic, on met à jour ces variables, et React

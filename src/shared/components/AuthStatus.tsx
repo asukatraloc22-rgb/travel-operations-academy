@@ -18,10 +18,18 @@ export function AuthStatus() {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => {
-      setUser(data.user);
-      setLoaded(true);
-    });
+    supabase.auth
+      .getUser()
+      .then(({ data }) => {
+        setUser(data.user);
+      })
+      .catch((error) => {
+        console.error("Error checking session:", error);
+        setUser(null);
+      })
+      .finally(() => {
+        setLoaded(true);
+      });
 
     // S'abonne aux changements de session (connexion/déconnexion) pour que
     // le header se mette à jour automatiquement, sans recharger la page.

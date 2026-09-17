@@ -1,17 +1,8 @@
-// app/modules/[slug]/page.tsx
-//
-// Route dynamique : ce fichier gère TOUTES les URLs du type /modules/xxx.
-// Next.js passe automatiquement la valeur capturée dans "params.slug".
-//
-// Depuis Next.js 15/16, "params" est une Promise (à cause du streaming côté
-// serveur) — on doit donc faire "await params" avant de l'utiliser.
-
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getModuleBySlug } from "@/core/config/modules";
 import { getCoursesByModule } from "@/modules/courses/getCoursesByModule";
-import { CourseContent } from "@/modules/courses/CourseContent";
-import { CourseStatusToggle } from "@/modules/courses/CourseStatusToggle";
+import { CourseListItem } from "@/modules/courses/CourseListItem";
 import { ProgressBar } from "@/shared/components/ProgressBar";
 
 type ModulePageProps = {
@@ -56,26 +47,16 @@ export default async function ModulePage({ params }: ModulePageProps) {
         </div>
       )}
 
-      <div className="mt-10 space-y-10">
+      {/* Liste de résumés cliquables, PAS le contenu complet — chaque
+          cours a sa propre page dédiée (/courses/[id]). Garde le module
+          lisible même avec beaucoup de cours dedans. */}
+      <div className="mt-10 space-y-3">
         {courses.length === 0 ? (
           <div className="rounded-xl border border-dashed border-[var(--color-border)] p-6 text-sm text-[var(--color-text-muted)]">
             Aucun cours pour ce module pour l&apos;instant.
           </div>
         ) : (
-          courses.map((course) => (
-            <div
-              key={course.id}
-              className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6"
-            >
-              <div className="flex items-center justify-between">
-                <h2 className="font-semibold text-xl">{course.title}</h2>
-                <CourseStatusToggle courseId={course.id} status={course.status} />
-              </div>
-              <div className="mt-6">
-                <CourseContent content={course.content} />
-              </div>
-            </div>
-          ))
+          courses.map((course) => <CourseListItem key={course.id} course={course} />)
         )}
       </div>
     </main>
