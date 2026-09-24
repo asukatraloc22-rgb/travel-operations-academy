@@ -6,6 +6,8 @@
 
 import { supabase } from "@/core/supabase/client";
 
+export const dynamic = 'force-dynamic';
+
 export type Course = {
   id: string;
   module_slug: string;
