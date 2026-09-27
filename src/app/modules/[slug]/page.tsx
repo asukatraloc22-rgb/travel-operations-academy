@@ -5,6 +5,10 @@ import { getCoursesByModule } from "@/modules/courses/getCoursesByModule";
 import { CourseListItem } from "@/modules/courses/CourseListItem";
 import { ProgressBar } from "@/shared/components/ProgressBar";
 
+// Même raison que sur la homepage : éviter qu'une version figée au
+// moment du build serve une liste de cours obsolète.
+export const dynamic = "force-dynamic";
+
 type ModulePageProps = {
   params: Promise<{ slug: string }>;
 };

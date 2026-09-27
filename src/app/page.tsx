@@ -8,6 +8,13 @@ import { TRAVEL_MODULES } from "@/core/config/modules";
 import { ModuleCard } from "@/modules/dashboard/ModuleCard";
 import { getCourseCounts } from "@/modules/courses/getCoursesByModule";
 
+// Sans ça, Next.js peut générer cette page de façon statique au moment
+// du build (Vercel) et servir une version figée à tout le monde — donc
+// des compteurs de cours qui ne bougent plus après le déploiement. On
+// force un rendu dynamique : les données sont récupérées à chaque
+// visite, jamais mises en cache entre deux requêtes.
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const { total: totalCourses, byModule, completedByModule } = await getCourseCounts();
   const modulesStarted = Object.keys(byModule).length;

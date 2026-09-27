@@ -5,6 +5,10 @@ import { getModuleBySlug } from "@/core/config/modules";
 import { CourseContent } from "@/modules/courses/CourseContent";
 import { CourseStatusToggle } from "@/modules/courses/CourseStatusToggle";
 
+// Idem : une page de cours doit toujours refléter le statut/contenu
+// réel, jamais une version figée au moment du build.
+export const dynamic = "force-dynamic";
+
 type CoursePageProps = {
   params: Promise<{ id: string }>;
 };
